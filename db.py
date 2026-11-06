@@ -119,10 +119,8 @@ def withdraw(account_id, amount):
         if amount <= 0:
             conn.rollback()
             return False, "Amount must be positive"
-        if amount > acc["balance"]:
-            conn.rollback()
-            return False, "Insufficient funds"
 
+        # 1. CHECK DAILY LIMIT FIRST (Policy rule)
         today_total = conn.execute(
             "SELECT COALESCE(SUM(amount),0) FROM transaction_log "
             "WHERE account_id = ? AND type='WITHDRAW' AND DATE(timestamp)=DATE('now')",
@@ -133,6 +131,12 @@ def withdraw(account_id, amount):
             conn.rollback()
             return False, "Daily withdrawal limit exceeded"
 
+        # 2. THEN CHECK BALANCE (Account rule)
+        if amount > acc["balance"]:
+            conn.rollback()
+            return False, "Insufficient funds"
+
+        # 3. PROCESS TRANSACTION
         conn.execute("UPDATE account SET balance = balance - ? WHERE account_id = ?", (amount, account_id))
         conn.execute(
             "INSERT INTO transaction_log (account_id, type, amount, status) "
