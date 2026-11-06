@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+{% block content %}
+  <h2>Transaction History</h2>
+
+  {% if rows %}
+    <table>
+      <tr>
+        <th>ID</th><th>Type</th><th>Amount (Rs.)</th><th>Date &amp; Time</th><th>Status</th>
+      </tr>
+      {% for r in rows %}
+        <tr>
+          <td>{{ r["transaction_id"] }}</td>
+          <td>{{ r["type"] }}</td>
+          <td>{{ "%.2f"|format(r["amount"]) }}</td>
+          <td>{{ r["timestamp"] }}</td>
+          <td>{{ r["status"] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No transactions found.</p>
+  {% endif %}
+
+  <a href="/menu" class="back">&laquo; Back to Main Menu</a>
+{% endblock %}

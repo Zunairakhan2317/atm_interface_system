@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Balance{% endblock %}
+{% block content %}
+  <h2>Account Balance</h2>
+  <p class="label">Current balance</p>
+  <p class="amount">Rs. {{ "%.2f"|format(balance) }}</p>
+  <a href="/menu" class="back">&laquo; Back to Main Menu</a>
+{% endblock %}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}ATM{% endblock %}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 14px;
+      background: #eef1f3;
+      color: #2b2b2b;
+      line-height: 1.5;
+    }
+    .topnav {
+      background: #1f2d2a;
+      color: #fff;
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topnav .brand {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .topnav .brand span { color: #4fb3a3; }
+    .topnav .user {
+      font-size: 12px;
+      opacity: 0.85;
+    }
+    .page {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .panel {
+      background: #fff;
+      border: 1px solid #d8dde0;
+      border-radius: 4px;
+      padding: 28px 30px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1f2d2a;
+      padding-bottom: 10px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid #e4e8ea;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #c7ced2;
+      border-radius: 3px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      background: #fff;
+    }
+    input:focus {
+      outline: none;
+      border-color: #4fb3a3;
+      box-shadow: 0 0 0 3px rgba(79,179,163,0.15);
+    }
+    button, .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      background: #1f7a6c;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    button:hover, .btn:hover { background: #166055; }
+    .btn-grey {
+      background: #8a9497;
+    }
+    .btn-grey:hover { background: #6f7a7d; }
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .msg {
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border-radius: 3px;
+      font-size: 13px;
+      border-left: 4px solid;
+    }
+    .msg.error { background: #fdecea; border-color: #d9534f; color: #a94442; }
+    .msg.success { background: #e8f5e9; border-color: #4caf50; color: #2e7d32; }
+    .label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+    .amount {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1f7a6c;
+      margin: 8px 0 22px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    th {
+      background: #f3f6f7;
+      color: #1f2d2a;
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid #d8dde0;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #eef1f3;
+    }
+    tr:hover td { background: #f7fafb; }
+    .back, .hint {
+      display: block;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #1f7a6c;
+      text-decoration: none;
+    }
+    .back:hover { text-decoration: underline; }
+    .hint { color: #888; }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <div class="brand">ATM <span>Interface</span> System</div>
+    <div class="user">Secure Session</div>
+  </div>
+
+  <div class="page">
+    <div class="panel">
+      {% with msgs = get_flashed_messages(with_categories=true) %}
+        {% for cat, m in msgs %}
+          <div class="msg {{ cat }}">{{ m }}</div>
+        {% endfor %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+  <h2>Customer Login</h2>
+
+  <form method="POST">
+    <label for="card_number">Card Number</label>
+    <input type="text" name="card_number" id="card_number" required autofocus>
+
+    <label for="pin">PIN</label>
+    <input type="password" name="pin" id="pin" maxlength="4" required>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <p class="hint">Demo: card 1234567890 &nbsp;|&nbsp; PIN 1234</p>
+{% endblock %}

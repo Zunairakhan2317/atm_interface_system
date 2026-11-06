@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Withdraw{% endblock %}
+{% block content %}
+  <h2>Withdraw Cash</h2>
+
+  <form method="POST">
+    <label for="amount">Amount (Rs.)</label>
+    <input type="number" name="amount" id="amount" step="0.01" min="1" required autofocus>
+    <button type="submit">Withdraw</button>
+  </form>
+
+  <a href="/menu" class="back">&laquo; Back to Main Menu</a>
+{% endblock %}
