@@ -33,13 +33,14 @@ def test_withdraw_success():
     assert get_account(1)["balance"] == 5000.0
 
 def test_withdraw_insufficient_funds():
-    ok, msg = withdraw(1, 999999)
+    # Balance is 10,000. Daily limit is 50,000. 
+    # Withdrawing 15,000 triggers 'Insufficient funds' (passes limit check, fails balance check)
+    ok, msg = withdraw(1, 15000)
     assert ok is False
     assert "Insufficient" in msg
 
 def test_withdraw_exceeds_daily_limit():
-    # Withdrawing 60,000 (Balance is 10,000, Limit is 50,000). 
-    # Both rules are violated, so either message is a valid rejection.
+    # Withdrawing 60,000 triggers 'Daily limit exceeded' (fails limit check)
     ok, msg = withdraw(1, 60000)
     assert ok is False
     assert "limit" in msg.lower() or "insufficient" in msg.lower()
